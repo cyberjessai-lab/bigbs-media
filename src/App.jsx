@@ -9,6 +9,7 @@ import Pricing from './pages/Pricing'
 import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
 import ScrollToTop from './components/ScrollToTop'
+import WhatsAppButton from './components/WhatsAppButton'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <WhatsAppButton />
     </BrowserRouter>
   )
 }

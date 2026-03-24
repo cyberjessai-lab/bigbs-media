@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Lightbox from '../components/Lightbox'
 
 const categories = ['All', 'Events', 'Nightlife', 'Content Creation', 'Marketing']
 
@@ -108,10 +109,29 @@ const allProjects = [...projects, ...eventGallery]
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All')
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const filtered = activeFilter === 'All'
     ? allProjects
     : allProjects.filter(p => p.category === activeFilter)
+
+  const openLightbox = useCallback((index) => {
+    setLightboxIndex(index)
+    setLightboxOpen(true)
+  }, [])
+
+  const closeLightbox = useCallback(() => {
+    setLightboxOpen(false)
+  }, [])
+
+  const nextImage = useCallback(() => {
+    setLightboxIndex((prev) => (prev + 1) % filtered.length)
+  }, [filtered.length])
+
+  const prevImage = useCallback(() => {
+    setLightboxIndex((prev) => (prev - 1 + filtered.length) % filtered.length)
+  }, [filtered.length])
 
   return (
     <div className="pt-20 md:pt-28">
@@ -169,6 +189,7 @@ export default function Portfolio() {
                   className={`group relative overflow-hidden rounded-xl cursor-pointer ${
                     i % 7 === 0 ? 'row-span-2 sm:row-span-2' : ''
                   }`}
+                  onClick={() => openLightbox(i)}
                 >
                   <div className={`relative w-full ${i % 7 === 0 ? 'h-full min-h-[300px] sm:min-h-[400px]' : 'aspect-square'}`}>
                     <img
@@ -208,6 +229,16 @@ export default function Portfolio() {
           </motion.p>
         </div>
       </section>
+
+      {/* Lightbox */}
+      <Lightbox
+        images={filtered}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={closeLightbox}
+        onNext={nextImage}
+        onPrev={prevImage}
+      />
     </div>
   )
 }

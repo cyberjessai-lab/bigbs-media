@@ -1,11 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { HiArrowRight } from 'react-icons/hi'
-import { Megaphone, Camera, PartyPopper, Heart, GraduationCap, Target } from 'lucide-react'
+import { HiArrowRight, HiStar } from 'react-icons/hi'
+import { Megaphone, Camera, PartyPopper, Heart, GraduationCap, Target, Quote } from 'lucide-react'
 import { services, stats, brand } from '../data/siteData'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -61,13 +61,31 @@ function TiltCard({ children, className = '' }) {
   )
 }
 
-/* Gallery images for the social proof strip */
-const galleryImages = [
+/* Gallery images for the marquee — two rows */
+const marqueeRow1 = [
   { src: '/images/events/crowd-bw.jpeg', alt: 'Concert crowd' },
   { src: '/images/portfolio/party-girls.jpeg', alt: 'Party vibes' },
   { src: '/images/events/performer.jpeg', alt: 'Live performer' },
   { src: '/images/portfolio/nightclub-90.jpeg', alt: '90 Night Club' },
   { src: '/images/events/concert-crowd.jpeg', alt: 'Concert energy' },
+  { src: '/images/portfolio/lounge-guys.jpeg', alt: 'Lounge guys' },
+  { src: '/images/portfolio/event-1.jpeg', alt: 'Event moment' },
+  { src: '/images/portfolio/party-dance.jpeg', alt: 'Dance floor' },
+  { src: '/images/portfolio/event-2.jpeg', alt: 'Event vibes' },
+  { src: '/images/portfolio/bartending.jpeg', alt: 'Bartending' },
+]
+
+const marqueeRow2 = [
+  { src: '/images/portfolio/lounge-vibes.jpeg', alt: 'Lounge vibes' },
+  { src: '/images/events/crowd-vibes.jpeg', alt: 'Crowd vibes' },
+  { src: '/images/portfolio/vehicle-branding.jpeg', alt: 'Vehicle branding' },
+  { src: '/images/portfolio/party-laughs.jpeg', alt: 'Good times' },
+  { src: '/images/events/performer-crowd.jpeg', alt: 'Performer and crowd' },
+  { src: '/images/portfolio/nelu-design.jpeg', alt: 'Nelu design' },
+  { src: '/images/portfolio/event-3.jpeg', alt: 'Event highlight' },
+  { src: '/images/portfolio/event-crowd-color.jpeg', alt: 'Colour event' },
+  { src: '/images/portfolio/event-4.jpeg', alt: 'Event moment' },
+  { src: '/images/portfolio/event-5.jpeg', alt: 'Event energy' },
 ]
 
 /* ─── Hero Section ─── */
@@ -279,42 +297,43 @@ function StatsBar() {
   )
 }
 
-/* ─── Gallery Strip (social proof) ─── */
+/* ─── Gallery Strip — Infinite Marquee ─── */
 function GalleryStrip() {
-  const ref = useRef(null)
-
-  useGSAP(() => {
-    gsap.from(ref.current.querySelectorAll('.gallery-item'), {
-      scale: 0.8,
-      opacity: 0,
-      stagger: 0.08,
-      duration: 0.6,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: ref.current, start: 'top 85%' },
-    })
-  }, { scope: ref })
-
   return (
-    <section ref={ref} className="py-12 md:py-16 bg-[var(--bg-warm)] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--gold)]">
-            Moments We've Captured
-          </span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {galleryImages.map((img, i) => (
-            <div
-              key={i}
-              className="gallery-item relative rounded-xl overflow-hidden aspect-square group cursor-pointer"
-            >
+    <section className="py-12 md:py-16 bg-[var(--bg-warm)] overflow-hidden">
+      <div className="text-center mb-8">
+        <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--gold)]">
+          Moments We've Captured
+        </span>
+      </div>
+
+      {/* Row 1 — scrolls left */}
+      <div className="marquee-container mb-3">
+        <div className="marquee-track marquee-left">
+          {[...marqueeRow1, ...marqueeRow1].map((img, i) => (
+            <div key={`r1-${i}`} className="marquee-item">
               <img
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-auto h-[200px] md:h-[250px] object-cover rounded-xl"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Row 2 — scrolls right */}
+      <div className="marquee-container">
+        <div className="marquee-track marquee-right">
+          {[...marqueeRow2, ...marqueeRow2].map((img, i) => (
+            <div key={`r2-${i}`} className="marquee-item">
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-auto h-[200px] md:h-[250px] object-cover rounded-xl"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
@@ -392,6 +411,115 @@ function ServicesPreview() {
   )
 }
 
+/* ─── Testimonials Section ─── */
+const testimonials = [
+  {
+    quote: "Big B's transformed our club's social media presence. Our Friday nights went from half-empty to packed in just two months.",
+    name: 'Michael N.',
+    role: 'Club Owner',
+    business: 'Windhoek',
+    stars: 5,
+  },
+  {
+    quote: "The wedding content was absolutely stunning. Liina captured every special moment — our families still watch the highlight reel on repeat.",
+    name: 'Sarah & Tomas K.',
+    role: 'Newlyweds',
+    business: 'Swakopmund',
+    stars: 5,
+  },
+  {
+    quote: "Our restaurant's Instagram went from 200 followers to over 3,000 in three months. The content quality is unmatched in Namibia.",
+    name: 'Daphne M.',
+    role: 'Restaurant Manager',
+    business: 'Joe\'s Beerhouse, Windhoek',
+    stars: 5,
+  },
+  {
+    quote: "Professional, creative, and genuinely passionate about what they do. The staff training programme elevated our entire service experience.",
+    name: 'James P.',
+    role: 'Hospitality Director',
+    business: 'Windhoek',
+    stars: 5,
+  },
+]
+
+function Testimonials() {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <section className="relative py-20 md:py-28 overflow-hidden bg-[var(--bg-warm)]">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="text-center mb-14">
+          <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--gold)] mb-3 block">
+            What Our Clients Say
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[var(--black)] leading-tight">
+            Trusted by Namibia's Best Venues
+          </h2>
+        </div>
+
+        <div className="relative max-w-3xl mx-auto">
+          {/* Gold quote mark */}
+          <Quote size={48} className="text-[var(--gold)]/30 mx-auto mb-6" />
+
+          <div className="relative min-h-[200px]">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: i === current ? 1 : 0,
+                  y: i === current ? 0 : 20,
+                  position: i === current ? 'relative' : 'absolute',
+                }}
+                transition={{ duration: 0.5 }}
+                className={`text-center w-full ${i === current ? '' : 'pointer-events-none absolute inset-0'}`}
+              >
+                {/* Stars */}
+                <div className="flex justify-center gap-1 mb-5">
+                  {Array.from({ length: t.stars }).map((_, si) => (
+                    <HiStar key={si} size={20} className="text-[var(--gold)]" />
+                  ))}
+                </div>
+
+                <blockquote className="text-lg md:text-xl text-[var(--text)] leading-relaxed mb-6 italic">
+                  "{t.quote}"
+                </blockquote>
+
+                <div>
+                  <p className="font-['Syne',sans-serif] font-bold text-[var(--black)]">{t.name}</p>
+                  <p className="text-sm text-[var(--text-muted)]">{t.role}, {t.business}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  i === current ? 'bg-[var(--gold)] w-8' : 'bg-[var(--border)] hover:bg-[var(--gold)]/40'
+                }`}
+                aria-label={`Go to testimonial ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ─── CTA Section ─── */
 function CTASection() {
   return (
@@ -447,6 +575,7 @@ export default function Home() {
       <StatsBar />
       <GalleryStrip />
       <ServicesPreview />
+      <Testimonials />
       <CTASection />
     </>
   )

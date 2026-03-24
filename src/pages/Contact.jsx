@@ -6,14 +6,37 @@ import { brand } from '../data/siteData'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
+  const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
+
+  const validate = () => {
+    const newErrors = {}
+    if (!form.name.trim()) newErrors.name = 'Name is required'
+    if (!form.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+    if (!form.message.trim()) newErrors.message = 'Message is required'
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // TODO: integrate with email service
+    if (!validate()) return
+
+    // Construct mailto link with form data
+    const subject = encodeURIComponent(`New enquiry from ${form.name}`)
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || 'Not provided'}\n\nMessage:\n${form.message}`
+    )
+    window.open(`mailto:${brand.email}?subject=${subject}&body=${body}`, '_self')
+
     setSent(true)
-    setTimeout(() => setSent(false), 4000)
+    setTimeout(() => setSent(false), 6000)
     setForm({ name: '', email: '', phone: '', message: '' })
+    setErrors({})
   }
 
   return (
@@ -45,18 +68,18 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-3"
             >
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Name</label>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Name *</label>
                     <input
                       type="text"
-                      required
                       value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text)] text-sm focus:outline-none focus:border-[var(--gold)] focus:ring-1 focus:ring-[var(--gold)]/30 transition-all"
+                      onChange={(e) => { setForm({ ...form, name: e.target.value }); if (errors.name) setErrors({ ...errors, name: '' }) }}
+                      className={`w-full px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border ${errors.name ? 'border-red-400' : 'border-[var(--border)]'} text-[var(--text)] text-sm focus:outline-none focus:border-[var(--gold)] focus:ring-1 focus:ring-[var(--gold)]/30 transition-all`}
                       placeholder="Your full name"
                     />
+                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                   </div>
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Phone</label>
@@ -70,26 +93,26 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Email</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Email *</label>
                   <input
                     type="email"
-                    required
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text)] text-sm focus:outline-none focus:border-[var(--gold)] focus:ring-1 focus:ring-[var(--gold)]/30 transition-all"
+                    onChange={(e) => { setForm({ ...form, email: e.target.value }); if (errors.email) setErrors({ ...errors, email: '' }) }}
+                    className={`w-full px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border ${errors.email ? 'border-red-400' : 'border-[var(--border)]'} text-[var(--text)] text-sm focus:outline-none focus:border-[var(--gold)] focus:ring-1 focus:ring-[var(--gold)]/30 transition-all`}
                     placeholder="you@example.com"
                   />
+                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Message</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Message *</label>
                   <textarea
-                    required
                     rows={5}
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text)] text-sm focus:outline-none focus:border-[var(--gold)] focus:ring-1 focus:ring-[var(--gold)]/30 transition-all resize-none"
+                    onChange={(e) => { setForm({ ...form, message: e.target.value }); if (errors.message) setErrors({ ...errors, message: '' }) }}
+                    className={`w-full px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border ${errors.message ? 'border-red-400' : 'border-[var(--border)]'} text-[var(--text)] text-sm focus:outline-none focus:border-[var(--gold)] focus:ring-1 focus:ring-[var(--gold)]/30 transition-all resize-none`}
                     placeholder="Tell us about your project..."
                   />
+                  {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
 
                 <button
@@ -98,6 +121,16 @@ export default function Contact() {
                 >
                   {sent ? 'Message Sent!' : 'Send Message'}
                 </button>
+
+                {sent && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-sm text-[var(--gold-dark)] font-medium mt-3"
+                  >
+                    Thank you for reaching out! We'll get back to you within 24 hours.
+                  </motion.p>
+                )}
               </form>
             </motion.div>
 

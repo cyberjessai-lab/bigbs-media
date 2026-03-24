@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bigbs-media.vercel.app/sitemap.xml
