@@ -187,11 +187,11 @@ export default function Portfolio() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4, delay: Math.min(i * 0.03, 0.3) }}
                   className={`group relative overflow-hidden rounded-xl cursor-pointer ${
-                    i % 7 === 0 ? 'row-span-2 sm:row-span-2' : ''
+                    i % 7 === 0 ? 'sm:row-span-2' : ''
                   }`}
                   onClick={() => openLightbox(i)}
                 >
-                  <div className={`relative w-full ${i % 7 === 0 ? 'h-full min-h-[300px] sm:min-h-[400px]' : 'aspect-square'}`}>
+                  <div className={`relative w-full ${i % 7 === 0 ? 'aspect-[3/4] sm:h-full sm:min-h-[400px] sm:aspect-auto' : 'aspect-square'}`}>
                     <img
                       src={p.image}
                       alt={p.title}

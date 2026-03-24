@@ -17,6 +17,16 @@ export default function Navbar() {
 
   useEffect(() => { setOpen(false) }, [pathname])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
   return (
     <>
       <motion.nav
@@ -93,10 +103,10 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[var(--bg)]/98 backdrop-blur-2xl pt-20 px-6"
+            className="fixed inset-0 z-40 bg-[var(--bg)] backdrop-blur-2xl pt-20 px-6"
           >
             <div className="flex flex-col gap-2">
-              {navigation.map((item, i) => (
+              {[...navigation, { name: 'FAQ', path: '/faq' }].map((item, i) => (
                 <motion.div
                   key={item.path}
                   initial={{ opacity: 0, x: -20 }}

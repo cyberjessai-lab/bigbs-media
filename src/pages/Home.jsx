@@ -92,8 +92,8 @@ const marqueeRow2 = [
 function Hero() {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 80])
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
@@ -469,18 +469,17 @@ function Testimonials() {
           {/* Gold quote mark */}
           <Quote size={48} className="text-[var(--gold)]/30 mx-auto mb-6" />
 
-          <div className="relative min-h-[200px]">
+          <div className="relative min-h-[240px] sm:min-h-[200px]">
             {testimonials.map((t, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{
                   opacity: i === current ? 1 : 0,
                   y: i === current ? 0 : 20,
-                  position: i === current ? 'relative' : 'absolute',
                 }}
                 transition={{ duration: 0.5 }}
-                className={`text-center w-full ${i === current ? '' : 'pointer-events-none absolute inset-0'}`}
+                className={`text-center w-full ${i === current ? 'relative' : 'absolute inset-0 pointer-events-none'}`}
               >
                 {/* Stars */}
                 <div className="flex justify-center gap-1 mb-5">

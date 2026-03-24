@@ -46,7 +46,7 @@ export default function Lightbox({ images, currentIndex, isOpen, onClose, onNext
           {/* Previous arrow */}
           <button
             onClick={(e) => { e.stopPropagation(); onPrev() }}
-            className="absolute left-4 md:left-8 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+            className="absolute left-2 md:left-8 bottom-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-10 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/20 md:bg-white/10 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
             aria-label="Previous image"
           >
             <HiChevronLeft size={24} />
@@ -55,7 +55,7 @@ export default function Lightbox({ images, currentIndex, isOpen, onClose, onNext
           {/* Next arrow */}
           <button
             onClick={(e) => { e.stopPropagation(); onNext() }}
-            className="absolute right-4 md:right-8 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+            className="absolute right-2 md:right-8 bottom-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-10 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/20 md:bg-white/10 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
             aria-label="Next image"
           >
             <HiChevronRight size={24} />

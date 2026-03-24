@@ -68,9 +68,9 @@ export default function Services() {
 
               return (
                 <div key={service.id}>
-                  <div className={`svc-row grid md:grid-cols-2 gap-8 md:gap-12 items-center py-12 md:py-16 ${isEven ? 'md:direction-rtl' : ''}`}>
+                  <div className="svc-row grid md:grid-cols-2 gap-8 md:gap-12 items-center py-12 md:py-16">
                     {/* Image side */}
-                    <div className={`relative overflow-hidden rounded-2xl ${isEven ? 'md:order-2' : 'md:order-1'}`}>
+                    <div className={`relative overflow-hidden rounded-2xl ${isEven ? 'md:order-2' : ''}`}>
                       {img && (
                         <div className="relative group">
                           <img
@@ -81,7 +81,7 @@ export default function Services() {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-2xl" />
                           {/* Large faded number */}
-                          <span className="absolute bottom-4 right-6 font-['Syne',sans-serif] text-[120px] md:text-[160px] font-extrabold leading-none text-white/10 select-none pointer-events-none">
+                          <span className="absolute bottom-4 right-4 md:right-6 font-['Syne',sans-serif] text-[80px] md:text-[160px] font-extrabold leading-none text-white/10 select-none pointer-events-none">
                             {num}
                           </span>
                         </div>
@@ -89,7 +89,7 @@ export default function Services() {
                     </div>
 
                     {/* Text side */}
-                    <div className={`${isEven ? 'md:order-1' : 'md:order-2'}`}>
+                    <div className={isEven ? 'md:order-1' : ''}>
                       <div className="flex items-center gap-4 mb-6">
                         <div className="w-14 h-14 rounded-xl bg-[var(--gold)]/10 flex items-center justify-center">
                           {Icon && <Icon size={26} className="text-[var(--gold)]" />}

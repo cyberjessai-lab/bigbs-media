@@ -73,7 +73,7 @@ export default function About() {
                 </div>
               </div>
               {/* Floating accent */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float" />
+              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float hidden md:block" />
             </motion.div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function About() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
               {/* Floating accent */}
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float-reverse" />
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float-reverse hidden md:block" />
             </motion.div>
           </div>
         </div>
