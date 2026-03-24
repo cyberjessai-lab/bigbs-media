@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --gold: #C8A24E;
+  --gold-light: #E8D5A0;
+  --gold-dark: #8B6914;
+  --black: #0A0A0A;
+  --black-soft: #1A1A1A;
+  --black-muted: #2A2A2A;
+  --bg: #FAFAF7;
+  --bg-warm: #F5F3EE;
+  --bg-card: #FFFFFF;
+  --bg-dark: #0D0D0D;
+  --text: #111111;
+  --text-muted: #6B6B6B;
+  --text-light: #999999;
+  --text-on-dark: #F0EDE6;
+  --accent: #C8A24E;
+  --border: #E8E5DD;
+  --border-dark: #2A2A2A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--black);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.perspective-container { perspective: 1200px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(20px) rotate(-3deg); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-reverse { animation: float-reverse 7s ease-in-out infinite; }
+.animate-float-slow { animation: float 10s ease-in-out infinite; }
