@@ -16,9 +16,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-lg bg-[var(--gold)] flex items-center justify-center">
-                <span className="text-[var(--black)] font-['Syne',sans-serif] font-extrabold text-base">B</span>
-              </div>
+              <img
+                src="/images/logo/bigbs-logo.jpeg"
+                alt="Big B's Creative Agency"
+                className="w-11 h-11 rounded-lg object-cover"
+              />
               <span className="font-['Syne',sans-serif] font-bold text-xl text-white">{brand.name}</span>
             </div>
             <p className="text-sm leading-relaxed text-[var(--text-light)] mb-6">

@@ -1,5 +1,5 @@
 export const brand = {
-  name: "Big B's Media Agency",
+  name: "Big B's Creative Agency",
   tagline: 'Home of Acme Marketing',
   email: 'bigbsmediaagency@gmail.com',
   phone: '+264857433617',

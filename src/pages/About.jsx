@@ -36,22 +36,46 @@ export default function About() {
           }} />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl"
-          >
-            <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--gold)] mb-3 block">About Us</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--black)] leading-tight mb-6">
-              The Woman Behind the Brand
-            </h1>
-            <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-              {brand.yearsInBusiness} years ago, <strong className="text-[var(--text)]">{brand.founder}</strong> saw a gap in Namibia's entertainment
-              industry — venues and events with incredible energy but no one capturing it properly.
-              Big B's Media Agency was born to change that.
-            </p>
-          </motion.div>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--gold)] mb-3 block">About Us</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--black)] leading-tight mb-6">
+                The Woman Behind the Brand
+              </h1>
+              <p className="text-lg text-[var(--text-muted)] leading-relaxed">
+                {brand.yearsInBusiness} years ago, <strong className="text-[var(--text)]">{brand.founder}</strong> saw a gap in Namibia's entertainment
+                industry — venues and events with incredible energy but no one capturing it properly.
+                Big B's Creative Agency was born to change that.
+              </p>
+            </motion.div>
+
+            {/* Founder hero image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25)]">
+                <img
+                  src="/images/founder/liina-bar-1.jpeg"
+                  alt="Liina — Founder of Big B's Creative Agency"
+                  className="w-full h-[450px] lg:h-[520px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <p className="text-white font-['Syne',sans-serif] font-bold text-xl">{brand.founder}</p>
+                  <p className="text-[var(--gold)] text-sm font-medium">CEO & Founder</p>
+                </div>
+              </div>
+              {/* Floating accent */}
+              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -92,22 +116,16 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--black)] to-[var(--black-muted)] p-8 aspect-square flex items-center justify-center">
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: `linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px)`,
-                  backgroundSize: '32px 32px',
-                }} />
-                <div className="relative z-10 text-center">
-                  <div className="w-24 h-24 rounded-2xl bg-[var(--gold)] flex items-center justify-center mx-auto mb-6">
-                    <span className="text-[var(--black)] font-['Syne',sans-serif] font-extrabold text-4xl">B</span>
-                  </div>
-                  <p className="text-white font-['Syne',sans-serif] font-bold text-2xl mb-2">{brand.founder}</p>
-                  <p className="text-[var(--gold)] text-sm">CEO & Founder</p>
-                  <p className="text-[var(--text-light)] text-xs mt-2">{brand.tagline}</p>
-                </div>
+              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.2)]">
+                <img
+                  src="/images/founder/liina-bar-2.jpeg"
+                  alt="Liina at work"
+                  className="w-full h-[400px] md:h-[480px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
               {/* Floating accent */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float" />
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-[var(--gold)]/10 border border-[var(--gold)]/20 animate-float-reverse" />
             </motion.div>
           </div>
         </div>

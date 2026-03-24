@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useGSAP } from '@gsap/react'
@@ -61,6 +61,15 @@ function TiltCard({ children, className = '' }) {
   )
 }
 
+/* Gallery images for the social proof strip */
+const galleryImages = [
+  { src: '/images/events/crowd-bw.jpeg', alt: 'Concert crowd' },
+  { src: '/images/portfolio/party-girls.jpeg', alt: 'Party vibes' },
+  { src: '/images/events/performer.jpeg', alt: 'Live performer' },
+  { src: '/images/portfolio/nightclub-90.jpeg', alt: '90 Night Club' },
+  { src: '/images/events/concert-crowd.jpeg', alt: 'Concert energy' },
+]
+
 /* ─── Hero Section ─── */
 function Hero() {
   const heroRef = useRef(null)
@@ -84,7 +93,7 @@ function Hero() {
       <GeoShapes />
 
       <motion.div style={{ y, opacity }} className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-28 pb-20 md:pt-36 md:pb-28 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left — Copy */}
           <div>
             <motion.div
@@ -147,7 +156,7 @@ function Hero() {
             </motion.div>
           </div>
 
-          {/* Right — 3D Card visual */}
+          {/* Right — Founder hero image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
@@ -155,25 +164,27 @@ function Hero() {
             className="perspective-container hidden lg:block"
           >
             <TiltCard className="relative">
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--black)] to-[var(--black-muted)] p-8 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)]">
-                {/* Decorative grid */}
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: `linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px)`,
-                  backgroundSize: '40px 40px',
-                }} />
-
-                <div className="relative z-10 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-[var(--gold)] flex items-center justify-center">
-                      <span className="text-[var(--black)] font-['Syne',sans-serif] font-extrabold text-lg">B</span>
-                    </div>
+              <div className="relative rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)]">
+                <img
+                  src="/images/founder/liina-laptop.jpeg"
+                  alt="Liina — Founder of Big B's Creative Agency"
+                  className="w-full h-[520px] object-cover"
+                />
+                {/* Gradient overlay at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                {/* Info overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <div className="flex items-center gap-3 mb-3">
+                    <img
+                      src="/images/logo/bigbs-logo.jpeg"
+                      alt=""
+                      className="w-10 h-10 rounded-lg object-cover"
+                    />
                     <div>
-                      <p className="text-white font-['Syne',sans-serif] font-bold">Big B's</p>
+                      <p className="text-white font-['Syne',sans-serif] font-bold text-sm">Big B's Creative Agency</p>
                       <p className="text-[var(--gold)] text-xs">{brand.tagline}</p>
                     </div>
                   </div>
-
-                  {/* Service pills */}
                   <div className="flex flex-wrap gap-2">
                     {['Social Media', 'Events', 'Content', 'Weddings', 'Training'].map((s, i) => (
                       <motion.span
@@ -181,29 +192,36 @@ function Hero() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 + i * 0.1 }}
-                        className="px-3 py-1.5 text-xs font-medium rounded-full border border-[var(--gold)]/30 text-[var(--gold-light)]"
+                        className="px-3 py-1.5 text-xs font-medium rounded-full border border-white/20 text-white/80 backdrop-blur-sm bg-white/5"
                       >
                         {s}
                       </motion.span>
                     ))}
                   </div>
-
-                  {/* Fake metrics */}
-                  <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
-                    {[
-                      { label: 'Engagement', value: '+340%' },
-                      { label: 'Reach', value: '50K+' },
-                      { label: 'Events', value: '200+' },
-                    ].map((m) => (
-                      <div key={m.label} className="text-center">
-                        <p className="text-white font-['Syne',sans-serif] font-bold text-xl">{m.value}</p>
-                        <p className="text-[var(--text-light)] text-[10px] uppercase tracking-wider mt-1">{m.label}</p>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </TiltCard>
+          </motion.div>
+
+          {/* Mobile hero image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="lg:hidden"
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)]">
+              <img
+                src="/images/founder/liina-laptop.jpeg"
+                alt="Liina — Founder of Big B's Creative Agency"
+                className="w-full h-[350px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-white font-['Syne',sans-serif] font-bold text-sm">{brand.founder}</p>
+                <p className="text-[var(--gold)] text-xs">CEO & Founder</p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </motion.div>
@@ -253,6 +271,50 @@ function StatsBar() {
                 {s.value}
               </p>
               <p className="text-sm text-[var(--text-light)] mt-1">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Gallery Strip (social proof) ─── */
+function GalleryStrip() {
+  const ref = useRef(null)
+
+  useGSAP(() => {
+    gsap.from(ref.current.querySelectorAll('.gallery-item'), {
+      scale: 0.8,
+      opacity: 0,
+      stagger: 0.08,
+      duration: 0.6,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: ref.current, start: 'top 85%' },
+    })
+  }, { scope: ref })
+
+  return (
+    <section ref={ref} className="py-12 md:py-16 bg-[var(--bg-warm)] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="text-center mb-8">
+          <span className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--gold)]">
+            Moments We've Captured
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          {galleryImages.map((img, i) => (
+            <div
+              key={i}
+              className="gallery-item relative rounded-xl overflow-hidden aspect-square group cursor-pointer"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300" />
             </div>
           ))}
         </div>
@@ -383,6 +445,7 @@ export default function Home() {
     <>
       <Hero />
       <StatsBar />
+      <GalleryStrip />
       <ServicesPreview />
       <CTASection />
     </>

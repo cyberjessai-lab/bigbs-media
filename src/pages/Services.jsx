@@ -12,6 +12,16 @@ gsap.registerPlugin(ScrollTrigger)
 
 const iconMap = { Megaphone, Camera, PartyPopper, Heart, GraduationCap, Target }
 
+/* Map service IDs to relevant images */
+const serviceImages = {
+  'social-media': '/images/portfolio/party-girls.jpeg',
+  'content-creation': '/images/events/performer.jpeg',
+  'events': '/images/events/crowd-bw.jpeg',
+  'weddings': '/images/portfolio/event-crowd-color.jpeg',
+  'training': '/images/portfolio/bartending.jpeg',
+  'ad-campaigns': '/images/portfolio/vehicle-branding.jpeg',
+}
+
 export default function Services() {
   const ref = useRef(null)
 
@@ -52,14 +62,27 @@ export default function Services() {
           <div className="grid md:grid-cols-2 gap-6">
             {services.map((service, i) => {
               const Icon = iconMap[service.icon]
+              const img = serviceImages[service.id]
               return (
-                <div key={service.id} className="svc-card group relative p-8 md:p-10 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--gold)]/40 transition-all duration-300 hover:shadow-[0_20px_60px_-15px_rgba(200,162,78,0.15)]">
-                  {/* Number */}
-                  <span className="absolute top-6 right-8 font-['Syne',sans-serif] text-6xl font-extrabold text-[var(--gold)]/5">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+                <div key={service.id} className="svc-card group relative rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--gold)]/40 transition-all duration-300 hover:shadow-[0_20px_60px_-15px_rgba(200,162,78,0.15)] overflow-hidden">
+                  {/* Service image */}
+                  {img && (
+                    <div className="relative h-48 md:h-56 overflow-hidden">
+                      <img
+                        src={img}
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent" />
+                      {/* Number badge */}
+                      <span className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[var(--black)]/80 backdrop-blur-sm flex items-center justify-center font-['Syne',sans-serif] text-sm font-bold text-[var(--gold)]">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="relative z-10">
+                  <div className="relative z-10 p-8 md:p-10">
                     <div className="w-14 h-14 rounded-xl bg-[var(--gold)]/10 flex items-center justify-center mb-6 group-hover:bg-[var(--gold)]/20 transition-colors">
                       {Icon && <Icon size={26} className="text-[var(--gold)]" />}
                     </div>

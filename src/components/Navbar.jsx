@@ -32,9 +32,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-lg bg-[var(--gold)] flex items-center justify-center transition-transform duration-300 group-hover:rotate-6">
-              <span className="text-[var(--black)] font-['Syne',sans-serif] font-extrabold text-sm">B</span>
-            </div>
+            <img
+              src="/images/logo/bigbs-logo.jpeg"
+              alt="Big B's Creative Agency"
+              className="w-10 h-10 rounded-lg object-cover transition-transform duration-300 group-hover:rotate-6"
+            />
             <span className="font-['Syne',sans-serif] font-bold text-lg tracking-tight text-[var(--black)]">
               Big B's
             </span>
