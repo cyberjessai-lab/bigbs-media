@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Lightbox from '../components/Lightbox'
 
-const categories = ['All', 'Events', 'Nightlife', 'Content Creation', 'Marketing']
+const categories = ['All', 'Events', 'Nightlife', 'Weddings', 'Content Creation', 'Marketing']
 
 const projects = [
   {
@@ -94,6 +94,48 @@ const projects = [
     category: 'Events',
     image: '/images/portfolio/event-crowd-color.jpeg',
     tags: ['Events', 'Festival'],
+  },
+  {
+    title: 'Wedding Details — Perfume & Heels',
+    category: 'Weddings',
+    image: '/images/portfolio/wedding-details-perfume.jpeg',
+    tags: ['Weddings', 'Content'],
+  },
+  {
+    title: 'Wedding Flatlay — Shoes, Jewellery & Invitation',
+    category: 'Weddings',
+    image: '/images/portfolio/wedding-details-flatlay.jpeg',
+    tags: ['Weddings', 'Content'],
+  },
+  {
+    title: 'Avenue Lounge — Grand Opening',
+    category: 'Events',
+    image: '/images/portfolio/avenue-lounge-poster.jpeg',
+    tags: ['Events', 'Design'],
+  },
+  {
+    title: '90 Night Club — Ladies Night',
+    category: 'Nightlife',
+    image: '/images/portfolio/90-ladies-night.jpeg',
+    tags: ['Nightlife', 'Design'],
+  },
+  {
+    title: 'Pequena — Karaoke Night',
+    category: 'Nightlife',
+    image: '/images/portfolio/pequena-karaoke.jpeg',
+    tags: ['Nightlife', 'Design'],
+  },
+  {
+    title: 'Party Safe Transport',
+    category: 'Marketing',
+    image: '/images/portfolio/party-safe-transport.jpeg',
+    tags: ['Marketing', 'Design'],
+  },
+  {
+    title: '90 Night Club — Hiring',
+    category: 'Marketing',
+    image: '/images/portfolio/90-hiring-poster.jpeg',
+    tags: ['Marketing', 'Design'],
   },
 ]
 
